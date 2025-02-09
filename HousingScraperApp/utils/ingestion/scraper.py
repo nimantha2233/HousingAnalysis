@@ -9,6 +9,11 @@ The main tasks carried out by this module:
 
 import requests
 from datetime import datetime
+import logging
+
+# Logger specific to this module
+logger = logging.getLogger(__name__)  
+
 
 def scrape(url: str) -> str:
     """
@@ -21,14 +26,14 @@ def scrape(url: str) -> str:
     Raises:
         Exception: If the request fails with a status code other than 200.
     """
-
+    logger.info(f"Scraping data from URL: {url}")
     # Make a request to the URL
     r = requests.get(url)
     scraped_at = datetime.now().replace(microsecond=0)
 
     # Check the status code
     if r.status_code == 200:
-        print(f"Success Accessing page, status code: {r.status_code}")
+        logger.info(f"Success Accessing page, status code: {r.status_code}")
     else:
         raise Exception(f"Failed to access page, status code {r.status_code}")
     

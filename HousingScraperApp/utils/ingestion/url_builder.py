@@ -17,11 +17,16 @@ The parameters include:
 The constructed URL can be used to make a GET request to Rightmove's property search endpoint.
 """
 from ..configs.url_params import params
+import logging
+
+# Logger specific to this module
+logger = logging.getLogger(__name__)  
 
 
 
 def build_url() -> str:
 
+    logger.info("Building URL...")
 
     # Construct the URL using f-string
     url = (

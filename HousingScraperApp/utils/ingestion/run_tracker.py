@@ -1,8 +1,10 @@
 """Utility functions for tracking the most recent run_id from Parquet files."""
 import polars as pl
 from pathlib import Path
+import logging
 
-
+# Logger specific to this module
+logger = logging.getLogger(__name__)  
 
 
 def get_latest_run_id(parquet_dir : str, filename : str) -> str:
@@ -10,7 +12,7 @@ def get_latest_run_id(parquet_dir : str, filename : str) -> str:
     parquet_files = list(Path(parquet_dir).glob(f"{filename}"))
     
     if not parquet_files:
-        print("⚠ No Parquet files found!")
+        logger.info("⚠ No Parquet files found!")
         return 1
 
     # Read all Parquet files and get the most recent run_id
@@ -24,6 +26,6 @@ def get_latest_run_id(parquet_dir : str, filename : str) -> str:
             if latest_timestamp is None or df["scrape_datetime"][0] > latest_timestamp:
                 latest_timestamp = df["scrape_datetime"][0]
                 latest_run_id = df["run_id"][0]
-    print('Latest run_id:', latest_run_id)
+    logger.info('Latest run_id:', latest_run_id)
 
     return latest_run_id + 1
