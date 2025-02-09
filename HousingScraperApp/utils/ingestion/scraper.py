@@ -21,7 +21,8 @@ def scrape(url: str) -> str:
         url (str): The URL of the page to scrape.
     
     Returns:
-        str: The HTML content of the page if the request is successful.
+        tuple: A tuple containing the HTML content of the page (str) and the 
+               timestamp when the scraping was done (datetime).
     
     Raises:
         Exception: If the request fails with a status code other than 200.
